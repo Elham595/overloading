@@ -1,0 +1,80 @@
+#include<iostream>
+
+#include <fstream>
+
+using namespace std;
+
+class point3D{
+    int x,y,z;
+public:
+    point3D(){
+    x=y=z=0;
+    }
+    point3D(int a, int b, int c){
+       x=a;
+       y=b;
+       z=c;
+    }
+    void setX(int m){x=m;
+    cout << "hiiiiii";}
+    void setY(int n){y=n;
+    setX(5);}
+    void setZ(int n){z=n;}
+
+    int getX(){
+       return x;
+    }
+    int getY(){
+       return y;
+    }
+    int getZ(){
+       return z;
+    }
+    friend ostream &  operator << (ostream & out , point3D & p);
+    friend istream &  operator >>(istream & in , point3D & p);
+};
+
+int main(){
+
+    point3D obj;
+    obj.setY(4);
+//    cin >> obj;
+//    cout << obj;
+    point3D::setX(4);
+
+	  fstream my_file;
+	  my_file.open("myFile", ios::out);
+	  int x =12;
+
+    my_file << x;
+
+     my_file.close();
+
+    my_file.open("myFile", ios::in);
+
+
+    my_file >> x;
+   my_file.close();
+
+    fstream obj;
+    obj.open("BinaryFile", ios::out|ios::binary);
+    int x=6;
+    char xx=(char)x;
+    obj.write(&xx,sizeof(int));
+  obj.close();
+return 0;
+
+}
+
+ostream &  operator <<(ostream & out , point3D & p){
+      out << "X= " << p.x << endl;
+      out << "Y= " << p.y << endl;
+      out << "Z= " << p.z << endl;
+      return out;
+}
+istream &  operator >>(istream & in , point3D & p){
+    in >> p.x;
+    in >> p.y;
+    in >> p.z;
+    return in;
+}
